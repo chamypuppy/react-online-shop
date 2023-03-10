@@ -1,8 +1,8 @@
-import './App.css';
+import "./App.css";
 import bgImg from "./img/bg.png";
-import shoes1 from "./img/shoes1.jpg"
-import shoes2 from "./img/shoes2.jpg"
-import shoes3 from "./img/shoes3.jpg"
+import shoes1 from "./img/shoes1.jpg";
+import shoes2 from "./img/shoes2.jpg";
+import shoes3 from "./img/shoes3.jpg";
 // import Container from "react-bootstrap/Container";
 // import Nav from "react-bootstrap/Nav";
 // import Navbar from "react-bootstrap/Navbar";
@@ -10,13 +10,14 @@ import shoes3 from "./img/shoes3.jpg"
 // import Button from "react-bootstrap/Button";
 import { Navbar, Container, NavDropdown, Nav, Row, Col } from "react-bootstrap";
 
-import { useState } from 'react';
+import { useState } from "react";
 import data from "./data.js";
-
-
 
 function App() {
   let [shoes] = useState(data);
+  let [colImg] = useState(shoes1);
+  let [num] = useState(0);
+  let [numArray] = useState([0, 1, 2]);
 
   return (
     <div className="App">
@@ -52,28 +53,39 @@ function App() {
 
       <Container>
         <Row>
-          <Col>
-            1 of 3
+          {/* <Col>
             <img src={shoes1} width="80%" />
             <h4>{shoes[0].title}</h4>
             <p>{shoes[0].price}</p>
           </Col>
 
           <Col>
-            2 of 3
             <img src={shoes2} width="80%" />
             <h4>{shoes[1].title}</h4>
             <p>{shoes[1].price}</p>
           </Col>
+
           <Col>
-            3 of 3
             <img src={shoes3} width="80%" />
             <h4>{shoes[2].title}</h4>
             <p>{shoes[2].price}</p>
-          </Col>
+          </Col> */}
+          {numArray.map(function (a, i) {
+            return <Columns shoes={shoes} colImg={colImg} num={num} i={i} />;
+          })}
         </Row>
       </Container>
     </div>
+  );
+}
+
+function Columns(props) {
+  return (
+    <Col>
+      <img src={props.colImg} width="80%" />
+      <h4>{props.shoes[props.i].title}</h4>
+      <p>{props.shoes[props.i].price}</p>
+    </Col>
   );
 }
 
