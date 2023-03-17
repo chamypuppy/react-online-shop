@@ -3,15 +3,10 @@ import bgImg from "./img/bg.png";
 import shoes1 from "./img/shoes1.jpg";
 import shoes2 from "./img/shoes2.jpg";
 import shoes3 from "./img/shoes3.jpg";
-// import Container from "react-bootstrap/Container";
-// import Nav from "react-bootstrap/Nav";
-// import Navbar from "react-bootstrap/Navbar";
-// import NavDropdown from "react-bootstrap/NavDropdown";
-// import Button from "react-bootstrap/Button";
 import { Navbar, Container, NavDropdown, Nav, Row, Col } from "react-bootstrap";
-
 import { useState } from "react";
 import data from "./data.js";
+import { Routes, Route, Link } from "react-router-dom";
 
 function App() {
   let [shoes] = useState(data);
@@ -27,8 +22,8 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
+              <Link to="/">홈</Link>
+              <Link to="/detail">상세페이지</Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
@@ -46,35 +41,35 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <div
-        className="main-bg"
-        style={{ backgroundImage: "url(" + bgImg + ")" }}
-      ></div>
 
-      <Container>
-        <Row>
-          {/* <Col>
-            <img src={shoes1} width="80%" />
-            <h4>{shoes[0].title}</h4>
-            <p>{shoes[0].price}</p>
-          </Col>
+      <Link to="/">홈</Link>
+      <Link to="/detail">상세페이지</Link>
 
-          <Col>
-            <img src={shoes2} width="80%" />
-            <h4>{shoes[1].title}</h4>
-            <p>{shoes[1].price}</p>
-          </Col>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <div
+                className="main-bg"
+                style={{ backgroundImage: "url(" + bgImg + ")" }}
+              ></div>
 
-          <Col>
-            <img src={shoes3} width="80%" />
-            <h4>{shoes[2].title}</h4>
-            <p>{shoes[2].price}</p>
-          </Col> */}
-          {numArray.map(function (a, i) {
-            return <Columns shoes={shoes} colImg={colImg} num={num} i={i} />;
-          })}
-        </Row>
-      </Container>
+              <Container>
+                <Row>
+                  {numArray.map(function (a, i) {
+                    return (
+                      <Columns shoes={shoes} colImg={colImg} num={num} i={i} />
+                    );
+                  })}
+                </Row>
+              </Container>
+            </>
+          }
+        />{" "}
+        {/* 메인페이지 */}
+        <Route path="/detail" element={<Detail />} />
+      </Routes>
     </div>
   );
 }
@@ -86,6 +81,27 @@ function Columns(props) {
       <h4>{props.shoes[props.i].title}</h4>
       <p>{props.shoes[props.i].price}</p>
     </Col>
+  );
+}
+
+function Detail() {
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-md-6">
+          <img
+            src="https://codingapple1.github.io/shop/shoes1.jpg"
+            width="100%"
+          />
+        </div>
+        <div className="col-md-6">
+          <h4 className="pt-5">상품명</h4>
+          <p>상품설명</p>
+          <p>120000원</p>
+          <button className="btn btn-danger">주문하기</button>
+        </div>
+      </div>
+    </div>
   );
 }
 
